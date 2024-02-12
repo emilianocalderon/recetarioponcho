@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - A Pen by EMILIANO CALDERON ZABALLA</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recetario</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        cursor: pointer;
+        padding: 10px;
+        margin: 5px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+    }
+    li:hover {
+        background-color: #e0e0e0;
+    }
+    .recipe-container {
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Recetario</h1>
+
+<ul id="categorias">
+    <li data-categoria="gringa">Comida Gringa</li>
+    <li data-categoria="mexicana">Comida Mexicana</li>
+    <li data-categoria="italiana">Comida Italiana</li>
+</ul>
+
+<div id="platos" style="display: none;">
+    <h2 id="platos-title"></h2>
+    <ul id="platos-list"></ul>
+</div>
+
+<div id="recipe-container" class="recipe-container">
+    <h2 id="recipe-title"></h2>
+    <h3>Ingredientes:</h3>
+    <ul id="recipe-ingredients"></ul>
+    <h3>Pasos:</h3>
+    <ol id="recipe-steps"></ol> <!-- Cambiado a <ol> para pasos numerados -->
+</div>
+
+<script>
+    const recetas = {
+        gringa: {
+            "Hamburguesa": {
+                ingredientes: ["Pan de hamburguesa", "Carne de res", "Lechuga", "Tomate", "Queso", "Cebolla", "Salsa", "Condimentos"],
+                pasos: [
+                    "Cocinar la carne a la parrilla o en una sartén caliente hasta que esté bien cocida.",
+                    "Cortar los vegetales frescos como lechuga, tomate y cebolla para ensamblar la hamburguesa.",
+                    "Armar la hamburguesa colocando la carne y los vegetales entre los panes.",
+                    "Agregar salsa y condimentos al gusto.",
+                    "Servir caliente."
+                ]
+            },
+            "Hot Dogs": {
+                ingredientes: ["Pan de hot dog", "Salchicha", "Cebolla", "Kétchup", "Mostaza", "Relish", "Condimentos"],
+                pasos: [
+                    "Cocinar las salchichas en agua hirviendo o a la parrilla hasta que estén bien calientes.",
+                    "Calentar los panes de hot dog en el horno o en una parrilla.",
+                    "Colocar las salchichas calientes dentro de los panes.",
+                    "Agregar los condimentos deseados como kétchup, mostaza, relish y cebolla picada.",
+                    "Servir caliente."
+                ]
+            },
+            // Agregar más comidas gringas aquí...
+        },
+        mexicana: {
+            "Tacos al pastor": {
+                ingredientes: ["Tortillas de maíz", "Carne de cerdo adobada", "Cebolla", "Piña", "Cilantro", "Limón", "Salsa"],
+                pasos: [
+                    "Asar la carne de cerdo adobada en una parrilla o en un sartén caliente hasta que esté bien cocida.",
+                    "Cortar la carne en tiras finas.",
+                    "Calentar las tortillas de maíz en una sartén o en el microondas.",
+                    "Armar los tacos colocando la carne, cebolla, piña y cilantro dentro de las tortillas.",
+                    "Exprimir un poco de jugo de limón y agregar salsa al gusto.",
+                    "Servir caliente."
+                ]
+            },
+            "Enchiladas": {
+                ingredientes: ["Tortillas de maíz", "Pollo deshebrado", "Salsa roja o verde", "Queso", "Crema", "Cebolla", "Aguacate"],
+                pasos: [
+                    "Calentar las tortillas de maíz en una sartén.",
+                    "Rellenar cada tortilla con pollo deshebrado y enrollarlas.",
+                    "Colocar las enchiladas en un plato para hornear.",
+                    "Cubrir las enchiladas con salsa roja o verde y queso rallado.",
+                    "Hornear a 180°C hasta que el queso se derrita.",
+                    "Servir caliente acompañadas de crema, cebolla picada y aguacate en rodajas."
+                ]
+            },
+            // Agregar más comidas mexicanas aquí...
+        },
+        italiana: {
+            "Pizza Margarita": {
+                ingredientes: ["Masa de pizza", "Salsa de tomate", "Mozzarella", "Albahaca fresca", "Aceite de oliva"],
+                pasos: [
+                    "Extender la masa de pizza en una bandeja para horno.",
+                    "Cubrir la masa con salsa de tomate.",
+                    "Agregar el queso mozzarella rallado sobre la salsa.",
+                    "Hornear a 220°C durante 10-15 minutos o hasta que la masa esté dorada y el queso derretido.",
+                    "Retirar del horno y esparcir hojas frescas de albahaca sobre la pizza.",
+                    "Rociar con un chorrito de aceite de oliva antes de servir."
+                ]
+            },
+            "Pasta Carbonara": {
+                ingredientes: ["Pasta (spaghetti o fettuccine)", "Bacon o panceta", "Huevo", "Queso parmesano rallado", "Aceite de oliva", "Sal", "Pimienta negra"],
+                pasos: [
+                    "Cocinar la pasta al dente según las instrucciones del paquete.",
+                    "Cortar el bacon o panceta en trozos pequeños y freír en una sartén hasta que estén crujientes.",
+                    "En un tazón, batir los huevos y agregar el queso parmesano rallado.",
+                    "Escurrir la pasta y agregarla a la sartén con el bacon. Retirar del fuego.",
+                    "Verter la mezcla de huevo y queso sobre la pasta caliente y mezclar rápidamente para que el calor de la pasta cocine los huevos sin cuajarlos.",
+                    "Sazonar con sal y pimienta negra al gusto.",
+                                        "Servir caliente, adornado con más queso parmesano rallado y pimienta negra molida."
+                ]
+            },
+            // Agregar más comidas italianas aquí...
+        }
+    };
+
+    const categoriasList = document.getElementById("categorias");
+    const platosContainer = document.getElementById("platos");
+    const platosTitle = document.getElementById("platos-title");
+    const platosList = document.getElementById("platos-list");
+    const recipeContainer = document.getElementById("recipe-container");
+    const recipeTitle = document.getElementById("recipe-title");
+    const recipeIngredients = document.getElementById("recipe-ingredients");
+    const recipeSteps = document.getElementById("recipe-steps");
+
+    categoriasList.addEventListener("click", (event) => {
+        const categoria = event.target.dataset.categoria;
+        if (categoria) {
+            platosTitle.textContent = "Platos de " + categoria.charAt(0).toUpperCase() + categoria.slice(1);
+            platosList.innerHTML = "";
+            Object.keys(recetas[categoria]).forEach((plato) => {
+                const li = document.createElement("li");
+                li.textContent = plato;
+                li.dataset.plato = plato;
+                platosList.appendChild(li);
+            });
+            platosContainer.style.display = "block";
+            recipeContainer.style.display = "none";
+        }
+    });
+
+    platosList.addEventListener("click", (event) => {
+        const plato = event.target.dataset.plato;
+        if (plato) {
+            const categoria = document.getElementById("platos-title").textContent.split(" ")[2].toLowerCase();
+            const { ingredientes, pasos } = recetas[categoria][plato];
+            recipeTitle.textContent = plato;
+            recipeIngredients.innerHTML = "";
+            ingredientes.forEach((ingrediente) => {
+                const li = document.createElement("li");
+                li.textContent = ingrediente;
+                recipeIngredients.appendChild(li);
+            });
+            recipeSteps.innerHTML = ""; // Limpiar pasos previos
+            pasos.forEach((paso, index) => {
+                const li = document.createElement("li");
+                li.textContent = `${index + 1}. ${paso}`; // Paso numerado
+                recipeSteps.appendChild(li);
+            });
+            recipeContainer.style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
